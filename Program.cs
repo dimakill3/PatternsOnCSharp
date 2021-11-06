@@ -8,7 +8,7 @@ namespace PatternsOnCSharp
     {
         static public void DemoAdapter()
         {
-            Console.WriteLine("Демонстрация Адаптера");
+            Console.WriteLine("\nDemo adapter:\n");
             VideoAdapter adapter = new VideoAdapter(new Video());
             adapter.BeginTell();
 
@@ -20,10 +20,10 @@ namespace PatternsOnCSharp
 
         static public void DemoIterator()
         {
-            Console.WriteLine("Демонстрация Итератора");
-            var hall1 = new Hall(1);
-            var hall2 = new Hall(2);
-            var hall3 = new Hall(3);
+            Console.WriteLine("\nDemo iterator:\n");
+            var hall1 = new Hall();
+            var hall2 = new Hall();
+            var hall3 = new Hall();
 
             var museum = new Museum(new List<Hall>() { hall1, hall2, hall3 });
 
@@ -32,12 +32,12 @@ namespace PatternsOnCSharp
             hallIter.MoveNext();
             Hall hall = (Hall)hallIter.Current();
 
-            Console.WriteLine($"Идентификатор зала: {hall.GetId()}");
+            Console.WriteLine($"Идентификатор зала: {hall.Id}");
         }
 
         static public void DemoComposite()
         {
-            Console.WriteLine("\nДемонстрация Композита + Декоратора");
+            Console.WriteLine("\nDemo composite + decorator:\n");
             ShowPieceComposite compose = new ShowPieceComposite();
             IShowPiece sp = new ShowPiece();
             IShowPiece sp1 = new ArtistLink(sp);
@@ -51,25 +51,36 @@ namespace PatternsOnCSharp
             compose.Show();
         }
 
-        static public void DemoDecorator()
+        static public void DemoBuilder()
         {
-            Console.WriteLine("\nДемонстрация Декоратора");
-            ShowPiece sp1 = new ShowPiece();
-            sp1.Show();
+            Console.WriteLine("\nDemo builder:\n");
+            Director d = new Director();
 
-            ArtistLink sp2 = new ArtistLink(sp1);
-            sp2.Show();
+            Hall defaultHall = d.MakeDefaultHall();
+            Hall reqHall = d.MakeRequiredHall();
 
-            ShowPieceLink sp3 = new ShowPieceLink(sp2);
-            sp3.Show();
+            var b = new HallBuilder();
+
+            ShowPiece sp = new ShowPiece(100);
+
+            Hall customHall = b
+                              .ID(1)
+                              .ShowPieceLimit(1)
+                              .ShowPieces(new List<ShowPiece> { sp })
+                              .Theme("Classic")
+                              .Build();
+
+            Console.WriteLine($"Default hall:\n {defaultHall}\n");
+            Console.WriteLine($"Required hall:\n {reqHall}\n");
+            Console.WriteLine($"Custom hall:\n {customHall}\n");
         }
 
         static void Main()
         {
             DemoAdapter();
-            DemoDecorator();
             DemoComposite();
             DemoIterator();
+            DemoBuilder();
         }
     }
 }
