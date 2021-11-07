@@ -120,16 +120,20 @@ namespace PatternsOnCSharp
                                             .ShowPieces(new List<ShowPiece> { new ShowPiece(100) })
                                             .Theme("Classic")
                                             .Build()));
+
+            Console.WriteLine($"Hall (not initialized):\n {m.halls[0]}\n");
+            Console.WriteLine($"Hall (initialized):\n {m.halls[0].Value}\n");
         }
 
         static void Main()
         {
-            DemoAdapter();
-            DemoComposite();
-            DemoIterator();
-            DemoBuilder();
-            DemoSingletone();
-            DemoPrototype();
+            //DemoAdapter();
+            //DemoComposite();
+            //DemoIterator();
+            //DemoBuilder();
+            //DemoSingletone();
+            //DemoPrototype();
+            DemoLazyInitializing();
         }
     }
 }
