@@ -101,18 +101,21 @@ namespace PatternsOnCSharp
 
             sh1.timetable.Name = "tt1";
 
-            Console.WriteLine($"sh: \t id: {sh.Id} \t timetable {sh.timetable.Name}, sh1: \t id: {sh1.Id} \t timetable {sh1.timetable.Name}");
+
+            Console.WriteLine($"ShallowCopy:\nsh: \t id: {sh.Id} \t timetable {sh.timetable.Name}, sh1: \t id: {sh1.Id} \t timetable {sh1.timetable.Name}\n");
 
             ShowPiece sh2 = sh.DeepCopy();
 
 
             sh2.timetable.Name = "tt2";
 
-            Console.WriteLine($"sh: \t id: {sh.Id} \t timetable {sh.timetable.Name}, sh1: \t id: {sh2.Id} \t timetable {sh2.timetable.Name}");
+            Console.WriteLine($"DeepCopy:\nsh: \t id: {sh.Id} \t timetable {sh.timetable.Name}, sh1: \t id: {sh2.Id} \t timetable {sh2.timetable.Name}\n");
         }
 
         static public void DemoLazyInitializing()
         {
+            Console.WriteLine("\nDemo lazy initializing:\n");
+
             var b = new HallBuilder();
             Museum m = Museum.Instance;
             m.AddHall(new Lazy<Hall>(() => b.ID(1)
