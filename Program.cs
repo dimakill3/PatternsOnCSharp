@@ -127,12 +127,12 @@ namespace PatternsOnCSharp
 
         static void Main()
         {
-            //DemoAdapter();
-            //DemoComposite();
-            //DemoIterator();
-            //DemoBuilder();
-            //DemoSingletone();
-            //DemoPrototype();
+            DemoAdapter();
+            DemoComposite();
+            DemoIterator();
+            DemoBuilder();
+            DemoSingletone();
+            DemoPrototype();
             DemoLazyInitializing();
         }
     }
