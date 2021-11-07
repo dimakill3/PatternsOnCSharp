@@ -1,20 +1,46 @@
 ﻿using System.Collections.Generic;
-using System.Collections;
+using System;
 
 namespace PatternsOnCSharp
 {
     class Museum : IterableCollection
     {
-        List<Hall> halls;
-
-        public Museum(List<Hall> halls)
+        public List<Lazy<Hall>> halls
         {
-            this.halls = new List<Hall>(halls);
+            get;
+            set;
+        }
+
+        static Museum instance;
+
+        private Museum(List<Lazy<Hall>> halls)
+        {
+            this.halls = new List<Lazy<Hall>>(halls);
         }
 
         public Iterator GetEnumerator()
         {
-            return new IteratorHall(halls);
+            List<Hall> lh = new List<Hall>();
+            foreach (var h in this.halls)
+                lh.Add(h.Value);
+
+            return new IteratorHall(lh);
+        }
+
+        public void AddHall(Lazy<Hall> hall)
+        {
+            halls.Add(hall);
+        }
+
+        public static Museum Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new Museum(new List<Lazy<Hall>>());
+
+                return instance;
+            }
         }
     }
 }

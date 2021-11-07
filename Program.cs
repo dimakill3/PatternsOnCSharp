@@ -21,18 +21,22 @@ namespace PatternsOnCSharp
         static public void DemoIterator()
         {
             Console.WriteLine("\nDemo iterator:\n");
-            var hall1 = new Hall();
-            var hall2 = new Hall();
-            var hall3 = new Hall();
+            var hall1 = new Lazy<Hall>();
+            var hall2 = new Lazy<Hall>();
+            var hall3 = new Lazy<Hall>();
+            hall1.Value.Id = 1;
+            hall2.Value.Id = 2;
+            hall3.Value.Id = 3;
 
-            var museum = new Museum(new List<Hall>() { hall1, hall2, hall3 });
+            var museum = Museum.Instance;
+            museum.halls = new List<Lazy<Hall>>() { hall1, hall2, hall3 };
 
             Iterator hallIter = museum.GetEnumerator();
 
             hallIter.MoveNext();
             Hall hall = (Hall)hallIter.Current();
 
-            Console.WriteLine($"Идентификатор зала: {hall.Id}");
+            Console.WriteLine($"Hall id: {hall.Id}");
         }
 
         static public void DemoComposite()
@@ -75,12 +79,57 @@ namespace PatternsOnCSharp
             Console.WriteLine($"Custom hall:\n {customHall}\n");
         }
 
+        static public void DemoSingletone()
+        {
+            Console.WriteLine("\nDemo singletone:\n");
+
+            Museum m1 = Museum.Instance;
+            Museum m2 = Museum.Instance;
+
+            if (m1 == m2)
+                Console.WriteLine("Both variables contain the same instance");
+
+
+        }
+
+        static public void DemoPrototype()
+        {
+            Console.WriteLine("\nDemo prototype:\n");
+
+            ShowPiece sh = new ShowPiece(10, new Timetable("tt"));
+            ShowPiece sh1 = sh.ShallowCopy();
+
+            sh1.timetable.Name = "tt1";
+
+            Console.WriteLine($"sh: \t id: {sh.Id} \t timetable {sh.timetable.Name}, sh1: \t id: {sh1.Id} \t timetable {sh1.timetable.Name}");
+
+            ShowPiece sh2 = sh.DeepCopy();
+
+
+            sh2.timetable.Name = "tt2";
+
+            Console.WriteLine($"sh: \t id: {sh.Id} \t timetable {sh.timetable.Name}, sh1: \t id: {sh2.Id} \t timetable {sh2.timetable.Name}");
+        }
+
+        static public void DemoLazyInitializing()
+        {
+            var b = new HallBuilder();
+            Museum m = Museum.Instance;
+            m.AddHall(new Lazy<Hall>(() => b.ID(1)
+                                            .ShowPieceLimit(1)
+                                            .ShowPieces(new List<ShowPiece> { new ShowPiece(100) })
+                                            .Theme("Classic")
+                                            .Build()));
+        }
+
         static void Main()
         {
             DemoAdapter();
             DemoComposite();
             DemoIterator();
             DemoBuilder();
+            DemoSingletone();
+            DemoPrototype();
         }
     }
 }

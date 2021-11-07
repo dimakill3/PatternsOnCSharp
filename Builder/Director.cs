@@ -1,13 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PatternsOnCSharp
 {
     class Director
     {
+        static Director instance;
+
+        public static Director Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new Director();
+                return instance;
+            }
+        }
 
         public Hall MakeRequiredHall()
         {
