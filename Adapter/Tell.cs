@@ -2,6 +2,6 @@
 {
     interface Tell
     {
-        public void BeginTell();
+        public void Accept(Visitor v);
     }
 }

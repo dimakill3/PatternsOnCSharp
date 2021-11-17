@@ -2,11 +2,11 @@
 {
     class VideoAdapter : Tell
     {
-        Video mp3;
+        Video mp4;
 
         public VideoAdapter(Video video)
         {
-            mp3 = video;
+            mp4 = video;
         }
 
         public VideoAdapter()
@@ -14,14 +14,14 @@
 
         }
 
-        public void BeginTell()
-        {
-            mp3.PlayVideo();
-        }
-
         public void SetVideo(Video video)
         {
-            mp3 = video;
+            mp4 = video;
+        }
+
+        public void Accept(Visitor v)
+        {
+            v.VisitVideoTell(mp4);
         }
     }
 }

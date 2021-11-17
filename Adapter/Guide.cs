@@ -17,9 +17,14 @@ namespace PatternsOnCSharp
             tellType = new WithoutTell();
         }
 
-        public void TellDescription()
+        public void BeginTellDescription()
         {
-            tellType.BeginTell();
+            tellType.Accept(new BeginTellingVisitor());
+        }
+
+        public void StopTellDescription()
+        {
+            tellType.Accept(new StopTellingVisitor());
         }
 
         public void SetTellType(Tell tellType)

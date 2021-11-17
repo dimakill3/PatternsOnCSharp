@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PatternsOnCSharp
 {
@@ -27,12 +28,28 @@ namespace PatternsOnCSharp
             set;
         }
 
-        public Hall(){ ShowPieces = new List<ShowPiece>(); }
+        public State State
+        {
+            get;
+            set;
+        }
+
+        public Hall()
+        { 
+            ShowPieces = new List<ShowPiece>();
+            ChangeState(new ClosedState());
+        }
+
+        public void ChangeState(State state)
+        {
+            this.State = state;
+            this.State.SetContext(this);
+            Console.WriteLine($"State changed: {State.GetType().Name}");
+        }
 
         public void AddShowPiece(ShowPiece sp)
         {
-            if (ShowPieces.Count < ShowPieceLimit)
-                ShowPieces.Add(sp);
+            State.AddShowPiece(sp);
         }
 
         public override string ToString()

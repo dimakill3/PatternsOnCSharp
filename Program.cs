@@ -10,12 +10,13 @@ namespace PatternsOnCSharp
         {
             Console.WriteLine("\nDemo adapter:\n");
             VideoAdapter adapter = new VideoAdapter(new Video());
-            adapter.BeginTell();
+            var vis = new BeginTellingVisitor();
+            adapter.Accept(vis);
 
             Guide g = new Guide();
 
             g.SetTellType(adapter);
-            g.TellDescription();
+            g.BeginTellDescription();
         }
 
         static public void DemoIterator()
@@ -126,6 +127,50 @@ namespace PatternsOnCSharp
 
             Console.WriteLine($"Hall (not initialized):\n {m.halls[0]}\n");
             Console.WriteLine($"Hall (initialized):\n {m.halls[0].Value}\n");
+            Console.WriteLine($"Hall (not initialized):\n {m.halls[0]}\n");
+        }
+
+        static public void DemoState()
+        {
+            Console.WriteLine("\nDemo state:\n");
+
+            Hall h = new Hall();
+            ShowPiece sp = new ShowPiece();
+            h.AddShowPiece(sp);
+            h.ChangeState(new OpenedState());
+            h.AddShowPiece(sp);
+        }
+
+        static public void DemoVisitor()
+        {
+            Console.WriteLine("\nDemo visitor:\n");
+
+            var audio = new AudioTell();
+            var text = new TextTell();
+            var without = new WithoutTell();
+
+            var mp4 = new Video();
+            var video = new VideoAdapter(mp4);
+
+            var guide = new Guide(audio);
+            guide.BeginTellDescription();
+            guide.StopTellDescription();
+            Console.WriteLine();
+
+            guide.SetTellType(text);
+            guide.BeginTellDescription();
+            guide.StopTellDescription();
+            Console.WriteLine();
+
+            guide.SetTellType(without);
+            guide.BeginTellDescription();
+            guide.StopTellDescription();
+            Console.WriteLine();
+
+            guide.SetTellType(video);
+            guide.BeginTellDescription();
+            guide.StopTellDescription();
+            Console.WriteLine();
         }
 
         static void Main()
@@ -137,6 +182,8 @@ namespace PatternsOnCSharp
             DemoSingletone();
             DemoPrototype();
             DemoLazyInitializing();
+            DemoState();
+            DemoVisitor();
         }
     }
 }

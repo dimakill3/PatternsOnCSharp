@@ -2,27 +2,27 @@
 
 namespace PatternsOnCSharp
 {
-        class AudioTell : Tell
+    class AudioTell : Tell
+    {
+        public void Accept(Visitor v)
         {
-            public void BeginTell()
-            {
-                Console.WriteLine("Аудиогид включён!");
-            }
+            v.VisitAudioTell(this);
         }
+    }
 
-        class TextTell : Tell
+    class TextTell : Tell
+    {
+        public void Accept(Visitor v)
         {
-            public void BeginTell()
-            {
-                Console.WriteLine("Текстовый гид включён!");
-            }
+            v.VisitTextTell(this);
         }
+    }
 
-        class WithoutTell : Tell
+    class WithoutTell : Tell
+    {
+        public void Accept(Visitor v)
         {
-            public void BeginTell()
-            {
-                Console.WriteLine("У вас нет гида!");
-            }
+            v.VisitWithoutTell(this);
         }
+    }
 }
