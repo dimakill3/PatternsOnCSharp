@@ -8,7 +8,7 @@ namespace PatternsOnCSharp
 
         public Guide(Tell tellType)
         {
-            this.tellType = tellType;
+            SetTellType(tellType);
         }
 
         public Guide()
@@ -30,6 +30,7 @@ namespace PatternsOnCSharp
         public void SetTellType(Tell tellType)
         {
             this.tellType = tellType;
+            Console.WriteLine($"Гид сменился на {tellType.GetType().Name}");
         }
     }
 }
