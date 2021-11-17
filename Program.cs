@@ -141,9 +141,9 @@ namespace PatternsOnCSharp
             h.AddShowPiece(sp);
         }
 
-        static public void DemoVisitor()
+        static public void DemoVisitorAndStrategy()
         {
-            Console.WriteLine("\nDemo visitor:\n");
+            Console.WriteLine("\nDemo visitor and also strategy:\n");
 
             var audio = new AudioTell();
             var text = new TextTell();
@@ -183,7 +183,7 @@ namespace PatternsOnCSharp
             DemoPrototype();
             DemoLazyInitializing();
             DemoState();
-            DemoVisitor();
+            DemoVisitorAndStrategy();
         }
     }
 }
