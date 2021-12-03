@@ -44,7 +44,6 @@ namespace PatternsOnCSharp
         public Hall Build()
         {
             Hall res = hall;
-            builder();
 
             return res;
         }

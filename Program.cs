@@ -173,6 +173,25 @@ namespace PatternsOnCSharp
             Console.WriteLine();
         }
 
+        static public void DemoObserver()
+        {
+            Console.WriteLine("\nDemo observer:\n");
+            Director d = new Director();
+
+            Hall h = d.MakeDefaultHall();
+            Customer player = new Customer();
+
+            h.Subscribe(player);
+
+            h.ChangeState(new OpenedState());
+
+            h.ChangeState(new ClosedState());
+
+            h.AddShowPiece(new ShowPiece());
+
+            h.Unsubscribe(player);
+        }
+
         static void Main()
         {
             DemoAdapter();
@@ -184,6 +203,7 @@ namespace PatternsOnCSharp
             DemoLazyInitializing();
             DemoState();
             DemoVisitorAndStrategy();
+            DemoObserver();
         }
     }
 }

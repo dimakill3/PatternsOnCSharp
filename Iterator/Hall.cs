@@ -5,6 +5,8 @@ namespace PatternsOnCSharp
 {
     class Hall
     {
+        private HallManager manager = new HallManager();
+
         public int Id
         {
             get;
@@ -44,12 +46,24 @@ namespace PatternsOnCSharp
         {
             this.State = state;
             this.State.SetContext(this);
-            Console.WriteLine($"State changed: {State.GetType().Name}");
+            Console.WriteLine($"Hall: State changed: {State.GetType().Name}");
+            manager.StateNotify(Id, this.State);
         }
 
         public void AddShowPiece(ShowPiece sp)
         {
             State.AddShowPiece(sp);
+            manager.NewShowPieceNotify(Id);
+        }
+
+        public void Subscribe(HallListeners listener)
+        {
+            manager.Subscribe(Id, listener);
+        }
+
+        public void Unsubscribe(HallListeners listener)
+        {
+            manager.Unsubscribe(Id, listener);
         }
 
         public override string ToString()
@@ -60,6 +74,11 @@ namespace PatternsOnCSharp
                 retStrng += sp.Id + ",";
 
             return retStrng;
+        }
+
+        public void SetHallManager(HallManager manager)
+        {
+            this.manager = manager;
         }
     }
 }
